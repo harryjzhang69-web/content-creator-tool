@@ -1,0 +1,13 @@
+node_modules/
+.env
+.env.token
+*.log
+deploy.zip
+fix*.zip
+test_*.jpg
+test_*.jpeg
+test_*.png
+t_*.json
+tp*.json
+tp*.stat
+draft.json

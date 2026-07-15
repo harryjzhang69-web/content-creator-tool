@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#6d5efc" />
+<title>内容多面手 · 一次输入，三平台图文</title>
+<link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="bg-decor" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
+  <div class="page">
+    <header class="hero">
+      <div class="hero-badge">
+        <span class="dot"></span>Beta · 写给做AI/科技内容的人
+      </div>
+      <h1>内容多面手</h1>
+      <p class="subtitle">一份想法，改出<strong>小红书 · 公众号 · 抖音</strong>三个版本，图也顺手配好<br class="br-mobile" />生成完自己看一眼再发，别全信机器</p>
+    </header>
+
+    <main class="panel">
+      <div class="mode-switch">
+        <button class="mode-btn active" data-mode="create">
+          <span class="mode-icon">✍️</span>
+          <span class="mode-text"><b>从零创作</b><em>没思路，给我造</em></span>
+        </button>
+        <button class="mode-btn" data-mode="polish">
+          <span class="mode-icon">🔧</span>
+          <span class="mode-text"><b>帮我打磨</b><em>有初稿，帮我改</em></span>
+        </button>
+      </div>
+
+      <section class="mode-panel" data-mode="create">
+        <div class="input-head">
+          <label for="topic">说说你想写点什么</label>
+          <span class="char-count" id="charCount">0 字</span>
+        </div>
+        <textarea id="topic" placeholder="例如：分享一下我用AI工具做小红书内容适配的踩坑经历，重点讲讲配图和文案去AI味的问题"></textarea>
+        <div class="input-actions">
+          <span class="hint">💡 写具体点效果更好，别就扔一个词过来</span>
+          <button id="generateBtn" class="primary-btn">
+            <span class="btn-icon">✨</span>
+            <span class="btn-text">生成三平台内容</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="mode-panel hidden" data-mode="polish">
+        <div class="input-head">
+          <label for="draft">把你写好的东西贴过来，我帮你看看</label>
+          <span class="char-count" id="draftCount">0 字</span>
+        </div>
+        <textarea id="draft" placeholder="随手写的、或者已经发过一个平台的初稿都行。我会先挑挑毛病（AI味重不重、有没有钩子、情绪够不够、标题吸引人不），再照你原本的意思改成小红书/公众号/抖音三版，不会给你编事儿。"></textarea>
+        <div class="input-actions">
+          <span class="hint">🔧 你写的事儿不会被改，就是换个说法适配平台</span>
+          <button id="polishBtn" class="primary-btn">
+            <span class="btn-icon">🔧</span>
+            <span class="btn-text">体检 + 打磨成三平台</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p id="loadingText">马上好，通常 10-20 秒</p>
+        <div class="loading-steps">
+          <span class="step active">先看看你写的啥</span>
+          <span class="step">换着法儿改三份</span>
+          <span class="step">顺手把图配上</span>
+        </div>
+      </section>
+
+      <section id="errorBox" class="error-box hidden"></section>
+
+      <section id="reviewSection" class="review-section hidden">
+        <div class="review-head">
+          <span class="review-title">🩺 网感体检报告</span>
+          <div class="review-score">
+            <span class="score-label">AI味</span>
+            <span id="reviewScore" class="score-num">--</span>
+            <span class="score-max">/100</span>
+            <span class="score-hint">越低越像真人写的</span>
+          </div>
+        </div>
+        <ul id="reviewChecklist" class="review-checklist"></ul>
+        <div class="review-tips">
+          <div class="review-tips-title">💡 改进建议</div>
+          <ol id="reviewSuggestions"></ol>
+        </div>
+      </section>
+
+      <section id="resultSection" class="result-section hidden">
+        <div class="tabs">
+          <button class="tab-btn tab-xhs active" data-tab="xhs"><span class="tab-icon">📕</span>小红书</button>
+          <button class="tab-btn tab-gzh" data-tab="gzh"><span class="tab-icon">💬</span>公众号</button>
+          <button class="tab-btn tab-dy" data-tab="dy"><span class="tab-icon">🎵</span>抖音</button>
+        </div>
+
+        <div class="tab-content active" data-tab="xhs">
+          <div class="gallery-note">📕 小红书这边配几张图，风格统一</div>
+          <div id="xhsGallery" class="gallery"></div>
+          <h3 id="xhsTitle"></h3>
+          <p id="xhsBody" class="body-text"></p>
+          <div id="xhsTags" class="tags"></div>
+          <button class="copy-btn copy-xhs" data-copy="xhs"><span>📋</span>复制小红书文案</button>
+        </div>
+
+        <div class="tab-content" data-tab="gzh">
+          <div class="gallery-note">💬 公众号就配一张横版头图</div>
+          <div id="gzhGallery" class="gallery gallery-single"></div>
+          <h3 id="gzhTitle"></h3>
+          <p id="gzhBody" class="body-text"></p>
+          <button class="copy-btn copy-gzh" data-copy="gzh"><span>📋</span>复制公众号文案</button>
+        </div>
+
+        <div class="tab-content" data-tab="dy">
+          <div class="gallery-note">🎬 抖音是视频，这里只能帮你出<strong>封面图 + 几张分镜参考</strong>，拍摄剪辑还得靠你自己</div>
+          <div id="dyGallery" class="gallery"></div>
+          <h3 id="dyHook"></h3>
+          <p id="dyScript" class="body-text"></p>
+          <button class="copy-btn copy-dy" data-copy="dy"><span>📋</span>复制抖音脚本</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">内容多面手 · 内测中 · 发之前自己看一眼</footer>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
