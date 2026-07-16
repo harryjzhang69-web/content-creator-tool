@@ -1,0 +1,8 @@
+{
+  "name": "content-creator-tool",
+  "cloudFunctions": {
+    "nodejs": {
+      "maxDuration": 120
+    }
+  }
+}
