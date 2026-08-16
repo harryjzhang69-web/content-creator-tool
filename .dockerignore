@@ -1,0 +1,14 @@
+node_modules
+.git
+edgeone
+cloudfunctions
+deploy.zip
+fix*.zip
+test_*.jpg
+test_*.jpeg
+test_*.png
+*.log
+.env
+.env.token
+DEPLOYMENT.md
+PRD.md
