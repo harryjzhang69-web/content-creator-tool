@@ -20,7 +20,7 @@
 
 
 ## 部署位置
-- AnyDev 环境：`anybuildInstance-6k6tqsarg0io`（IP: 21.91.155.2）
+- 旧版部署在一台云主机环境
 - 代码路径：`/data/content-creator-tool/`
 - 运行方式：tmux 会话
   - `content-tool`：Node 服务进程（`PORT=5001 node server.js`，日志见 `/data/content-creator-tool/server.log`）
